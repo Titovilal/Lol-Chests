@@ -1,20 +1,36 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package view;
+package es.tprograms.view;
+
+import es.tprograms.controller.SummonerController;
+import es.tprograms.dao.SummonerDao;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author scast
  */
-public class MainFrame extends javax.swing.JFrame {
+public class View extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainFrame
-     */
-    public MainFrame() {
+    private SummonerController summonerController;
+
+    public View() {
         initComponents();
+    }
+
+    public void initView() {
+        this.setLocationRelativeTo(null);
+        //this.setVisible(true);
+        initControllers();
+    }
+
+    private void initControllers() {
+        try {
+            SummonerDao.getSummoner("euw1", "titovilal", "RGAPI-29e58e7b-8110-47dd-8648-7c915359a147");
+        } catch (IOException | InterruptedException | URISyntaxException ex) {
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
