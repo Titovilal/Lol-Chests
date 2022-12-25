@@ -16,21 +16,6 @@ public class Champion {
     private long championPointsSinceLastLevel;
     private int tokensEarned;
 
-    public Champion() {
-    }
-
-    public Champion(Long championPointsUntilNextLevel, boolean chestGranted, long championId, long lastPlayTime, int championLevel, String summonerId, int championPoints, long championPointsSinceLastLevel, int tokensEarned) {
-        this.championPointsUntilNextLevel = championPointsUntilNextLevel;
-        this.chestGranted = chestGranted;
-        this.championId = championId;
-        this.lastPlayTime = lastPlayTime;
-        this.championLevel = championLevel;
-        this.summonerId = summonerId;
-        this.championPoints = championPoints;
-        this.championPointsSinceLastLevel = championPointsSinceLastLevel;
-        this.tokensEarned = tokensEarned;
-    }
-
     public Long getChampionPointsUntilNextLevel() {
         return championPointsUntilNextLevel;
     }

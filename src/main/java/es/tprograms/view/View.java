@@ -1,6 +1,5 @@
 package es.tprograms.view;
 
-import es.tprograms.controller.SummonerController;
 import es.tprograms.dao.SummonerDao;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -13,23 +12,22 @@ import java.util.logging.Logger;
  */
 public class View extends javax.swing.JFrame {
 
-    private SummonerController summonerController;
-
     public View() {
         initComponents();
     }
 
     public void initView() {
         this.setLocationRelativeTo(null);
-        //this.setVisible(true);
+        this.setVisible(true);
         initControllers();
     }
 
     private void initControllers() {
         try {
             SummonerDao.getSummoner("euw1", "titovilal", "RGAPI-29e58e7b-8110-47dd-8648-7c915359a147");
-        } catch (IOException | InterruptedException | URISyntaxException ex) {
+        } catch (IOException | URISyntaxException | InterruptedException ex) {
             Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+            Thread.currentThread().interrupt();
         }
     }
 

@@ -1,60 +1,91 @@
 package es.tprograms.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author scast
  */
 public class Summoner {
 
-    private String summonerId;
-    private String region;
-    private String gameName;
-    private List<Champion> champions;
+    private String id;
+    private String accountId;
+    private String puuid;
+    private String name;
+    private String profileIconId;
+    private String revisionDate;
+    private String summonerLevel;
 
     public Summoner() {
-        champions = new ArrayList<>();
     }
 
-    public Summoner(String summonerId, String region, String gameName, List<Champion> champions) {
-        this.summonerId = summonerId;
-        this.region = region;
-        this.gameName = gameName;
-        this.champions = champions;
+    public Summoner(String id, String accountId, String puuid, String name, String profileIconId, String revisionDate, String summonerLevel) {
+        this.id = id;
+        this.accountId = accountId;
+        this.puuid = puuid;
+        this.name = name;
+        this.profileIconId = profileIconId;
+        this.revisionDate = revisionDate;
+        this.summonerLevel = summonerLevel;
     }
 
-    public String getSummonerId() {
-        return summonerId;
+    @Override
+    public String toString() {
+        return "Summoner{" + "id=" + id + ", accountId=" + accountId + ", puuid=" + puuid + ", name=" + name + ", profileIconId=" + profileIconId + ", revisionDate=" + revisionDate + ", summonerLevel=" + summonerLevel + '}';
     }
 
-    public void setSummonerId(String summonerId) {
-        this.summonerId = summonerId;
+    public String getId() {
+        return id;
     }
 
-    public String getRegion() {
-        return region;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public String getAccountId() {
+        return accountId;
     }
 
-    public String getGameName() {
-        return gameName;
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
-    public void setGameName(String gameName) {
-        this.gameName = gameName;
+    public String getPuuid() {
+        return puuid;
     }
 
-    public List<Champion> getChampions() {
-        return champions;
+    public void setPuuid(String puuid) {
+        this.puuid = puuid;
     }
 
-    public void setChampions(List<Champion> champions) {
-        this.champions = champions;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getProfileIconId() {
+        return profileIconId;
+    }
+
+    public void setProfileIconId(String profileIconId) {
+        this.profileIconId = profileIconId;
+    }
+
+    public String getRevisionDate() {
+        return revisionDate;
+    }
+
+    public void setRevisionDate(String revisionDate) {
+        this.revisionDate = revisionDate;
+    }
+
+    public String getSummonerLevel() {
+        return summonerLevel;
+    }
+
+    public void setSummonerLevel(String summonerLevel) {
+        this.summonerLevel = summonerLevel;
     }
 
 }

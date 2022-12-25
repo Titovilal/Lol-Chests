@@ -1,11 +1,12 @@
 package es.tprograms.dao;
 
+import com.google.gson.Gson;
 import es.tprograms.model.Summoner;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  *
@@ -13,6 +14,9 @@ import okhttp3.Response;
  */
 public final class SummonerDao {
 
+    private SummonerDao (){
+        
+    }
     /**
      *
      * @param server
@@ -35,36 +39,15 @@ public final class SummonerDao {
                 .get()
                 .build();
 
-        Response response;
-        response = client.newCall(request).execute();
+        Gson gson = new Gson();
+        ResponseBody responseBody;
+        responseBody = client.newCall(request).execute().body();
+        
+        Summoner summoner;
+        summoner = gson.fromJson(responseBody.string(), Summoner.class);
 
-        System.out.println(response.code());
-        System.out.println(response.body().string());
+        
+        return summoner;
 
-        return new Summoner();
     }
 }
-
-//
-//OkHttpClient client = new OkHttpClient();
-//
-//        Request request = new Request.Builder()
-//                .url("https://league-of-legends-esports.p.rapidapi.com/teams?id=lng-esports")
-//                .get()
-//                .addHeader("summonerId", apiKey)
-//                .addHeader("X-RapidAPI-Host", "league-of-legends-esports.p.rapidapi.com")
-//                .build();
-//
-//        Response response = client.newCall(request).execute();
-//        Gson gson = new Gson();
-//        String jsonRequest = gson.toJson(summoner);
-//        System.out.println(jsonRequest);
-//        HttpRequest postRequest = HttpRequest.newBuilder()
-//                .uri(new URI(""))
-//                .header("Authorization", Constants.API_KEY)
-//                .POST(BodyPublishers.ofString(jsonRequest))
-//                .build();
-//
-//        HttpClient httpClient = HttpClient.newHttpClient();
-//
-//        HttpResponse<String> httpResponse = httpClient.send(postRequest, BodyHandlers.ofString());
