@@ -45,7 +45,6 @@ public final class SummonerDao {
         
         Summoner summoner;
         summoner = gson.fromJson(responseBody.string(), Summoner.class);
-
         
         return summoner;
 
