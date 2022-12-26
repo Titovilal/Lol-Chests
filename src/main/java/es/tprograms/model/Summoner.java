@@ -2,7 +2,7 @@ package es.tprograms.model;
 
 /**
  *
- * @author scast
+ * @author Titovilal
  */
 public class Summoner {
 
@@ -15,16 +15,8 @@ public class Summoner {
     private String summonerLevel;
 
     public Summoner() {
-    }
-
-    public Summoner(String id, String accountId, String puuid, String name, String profileIconId, String revisionDate, String summonerLevel) {
-        this.id = id;
-        this.accountId = accountId;
-        this.puuid = puuid;
-        this.name = name;
-        this.profileIconId = profileIconId;
-        this.revisionDate = revisionDate;
-        this.summonerLevel = summonerLevel;
+        id = "0";
+        name = "0";
     }
 
     @Override

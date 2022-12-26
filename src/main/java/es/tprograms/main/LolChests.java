@@ -4,7 +4,7 @@ import es.tprograms.view.View;
 
 /**
  *
- * @author scast
+ * @author Titovilal
  */
 public final class LolChests {
 

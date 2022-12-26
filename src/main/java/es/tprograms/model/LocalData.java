@@ -1,45 +1,66 @@
-package es.tprograms.model;
+    package es.tprograms.model;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
+ * Class that manage the program local data, it uses algorithm to encrypt the
+ * summoners ids file
  *
- * @author scast
+ * @author Titovilal
  */
 public class LocalData {
 
-    private static final String CONFIG_FILE_PATH = "";
-
-    private Map<String, String> encryptedIds;
-    private String mainEncryptedId;
+    private String apiKey;
+    private Map<String, String> mapIdServer;
+    private String mainId;
     private String mainServer;
 
-    public final void rewriteConfigFile() throws IOException {
-        try ( FileOutputStream fos = new FileOutputStream(CONFIG_FILE_PATH)) {
-            try ( ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-                oos.writeObject(mainEncryptedId);
-                oos.writeObject(mainServer);
-                oos.writeObject(encryptedIds);
-            }
-        }
+    /**
+     * Encrypt and write or rewrite the file with the summoners ids and Api Key
+     *
+     */
+    public final void overwriteUserData() {
+
     }
 
-    public final void readConfigFile() throws IOException {
-        try ( FileInputStream fis = new FileInputStream(CONFIG_FILE_PATH);  ObjectInputStream ois = new ObjectInputStream(fis)) {
-            mainEncryptedId = (String) ois.readObject();
-            mainServer = (String) ois.readObject();
-            encryptedIds = (Map<String, String>) ois.readObject();
+    /**
+     * Read, decrypt and store the summoners ids and Api Key
+     *
+     */
+    public final void readUserData() {
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LocalData.class
-                    .getName()).log(Level.SEVERE, null, ex);
+    }
+
+    /**
+     * OverWrite game version and champion ids
+     *
+     * @param championMap
+     * @throws java.io.IOException
+     */
+    public final void overwriteChampionData(Map<Integer, String> championMap) throws IOException {
+        BufferedWriter bw;
+        bw = new BufferedWriter(new FileWriter(Constants.CHAMPION_DATA_FILE_PATH));
+        for (Map.Entry<Integer, String> entry : championMap.entrySet()) {
+            bw.write(entry.getKey() + "," + entry.getValue());
+            bw.newLine();
         }
+
+    }
+    
+    public void loadNewUserData(){
+        
+    }
+
+    /**
+     * Compare lastest game version with the stored in local data
+     *
+     * @param lastestVersion Lastest game version
+     * @return true if matches, false if not
+     */
+    public final boolean compareChampionData(String lastestVersion) {
+        return true;
     }
 }

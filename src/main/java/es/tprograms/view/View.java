@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author scast
+ * @author Titovilal
  */
 public class View extends javax.swing.JFrame {
 
@@ -24,12 +24,13 @@ public class View extends javax.swing.JFrame {
 
     private void initControllers() {
         try {
-            SummonerDao.getSummoner("euw1", "titovilal", "RGAPI-29e58e7b-8110-47dd-8648-7c915359a147");
+            SummonerDao.getSummoner("euw1", "titovilal", "RGAPI-444c1562-72b9-48b4-a753-5368dba961ab");
         } catch (IOException | URISyntaxException | InterruptedException ex) {
             Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
             Thread.currentThread().interrupt();
         }
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,22 +41,51 @@ public class View extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        jMenuBar1.setToolTipText("ddd");
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("jMenu3");
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("jMenu4");
+        jMenuBar1.add(jMenu4);
+
+        setJMenuBar(jMenuBar1);
+        jMenuBar1.getAccessibleContext().setAccessibleName("sss");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 836, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 462, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,8 +1,8 @@
 package es.tprograms.model;
 
 /**
- *
- * @author scast
+ * Unused class at this version
+ * @author Titovilal
  */
 public class Champion {
 
