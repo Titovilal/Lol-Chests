@@ -9,7 +9,8 @@ import okhttp3.Request;
 import okhttp3.ResponseBody;
 
 /**
- * Unused class at this version
+ * Unused class at this version, could be used in futures releases to sort
+ * champions by mastery points
  *
  * @author Titovilal
  */

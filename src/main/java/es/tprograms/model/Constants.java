@@ -10,7 +10,7 @@ public final class Constants {
     public static final String USER_DATA_FILE_PATH = "";
     public static final String CHAMPION_DATA_FILE_PATH = "";
     public static final String DATA_LOADER_FILE_PATH = "";
-    private static String API = "";
+    private static String API = "RGAPI-444c1562-72b9-48b4-a753-5368dba961ab";
 
     /**
      * Class with the Riot Platform Routing Values

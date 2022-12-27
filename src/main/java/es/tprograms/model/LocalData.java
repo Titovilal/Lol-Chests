@@ -1,8 +1,9 @@
-    package es.tprograms.model;
+package es.tprograms.model;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -19,19 +20,39 @@ public class LocalData {
     private String mainServer;
 
     /**
-     * Encrypt and write or rewrite the file with the summoners ids and Api Key
+     * Write or rewrite the file with the summoners ids and their routing
+     * platform from favourites file
      *
      */
-    public final void overwriteUserData() {
+    public final void overwriteFavouritesFile() {
 
     }
 
     /**
-     * Read, decrypt and store the summoners ids and Api Key
+     * Read and store the summoners ids and their routing platform from
+     * favourites file
      *
      */
-    public final void readUserData() {
+    public final void readFavouritesFile() {
+    }
 
+    /**
+     * Compare lastest game version with the stored in static file
+     *
+     * @param lastestVersion Lastest game version
+     * @return true if matches, false if not
+     */
+    public final boolean isLastestVersion(String lastestVersion) {
+        return true;
+    }
+
+    /**
+     * OverWrite game version and champion ids
+     *
+     * @return
+     */
+    public final Map<Integer, String> readChampionFile() {
+        return new HashMap<>();
     }
 
     /**
@@ -40,27 +61,12 @@ public class LocalData {
      * @param championMap
      * @throws java.io.IOException
      */
-    public final void overwriteChampionData(Map<Integer, String> championMap) throws IOException {
+    public final void overwriteChampionFile(Map<Integer, String> championMap) throws IOException {
         BufferedWriter bw;
         bw = new BufferedWriter(new FileWriter(Constants.CHAMPION_DATA_FILE_PATH));
         for (Map.Entry<Integer, String> entry : championMap.entrySet()) {
             bw.write(entry.getKey() + "," + entry.getValue());
             bw.newLine();
         }
-
-    }
-    
-    public void loadNewUserData(){
-        
-    }
-
-    /**
-     * Compare lastest game version with the stored in local data
-     *
-     * @param lastestVersion Lastest game version
-     * @return true if matches, false if not
-     */
-    public final boolean compareChampionData(String lastestVersion) {
-        return true;
     }
 }

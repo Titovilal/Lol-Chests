@@ -24,6 +24,12 @@
             <artifactId>json</artifactId>
             <version>20220924</version>
         </dependency>
+        <!-- https://www.formdev.com/flatlaf/ -->
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.0</version>
+        </dependency>
 
     </dependencies>
     <properties>

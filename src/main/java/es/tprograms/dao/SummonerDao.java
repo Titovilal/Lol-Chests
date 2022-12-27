@@ -50,12 +50,14 @@ public final class SummonerDao {
         return summoner;
     }
 
+    @SuppressWarnings("null")
     public static Champion getChampion(String encryptedId, int ChampionId) throws IOException {
 
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/" + encryptedId)
+                .url("https://euw1.api.riotgames.com/lol/champion-mastery/"
+                        + "v4/champion-masteries/by-summoner/" + encryptedId)
                 .get()
                 .addHeader("X-Riot-Token", Constants.getAPI())
                 .build();

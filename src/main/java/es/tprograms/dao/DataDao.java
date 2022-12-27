@@ -18,7 +18,7 @@ import org.json.JSONObject;
 public class DataDao {
     
     /**
-     * Get the encrypted id from a game name and routing platform
+     * Get the encrypted id from a game name and routing platform   
      * @param routing
      * @param gameName
      * @return
