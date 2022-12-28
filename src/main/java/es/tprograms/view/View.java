@@ -1,16 +1,18 @@
 package es.tprograms.view;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.icons.FlatHelpButtonIcon;
 import controller.ChampionController;
 import controller.DataController;
 import controller.SummonerController;
-import es.tprograms.dao.SummonerDao;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.plaf.ColorUIResource;
 
 /**
  *
@@ -25,6 +27,10 @@ public class View extends javax.swing.JFrame {
     public View() {
         FlatDarkLaf.setup();
         initComponents();
+        FlatHelpButtonIcon buttonIcon = new FlatHelpButtonIcon();
+        buttonHelp.setIcon(buttonIcon);
+
+        textSummoner.requestFocus();
     }
 
     /**
@@ -46,7 +52,6 @@ public class View extends javax.swing.JFrame {
         summonerController = new SummonerController();
         dataController = new DataController();
         championController = new ChampionController();
-
         setUpView();
         loadFavourites();
     }
@@ -95,7 +100,8 @@ public class View extends javax.swing.JFrame {
         buttonSummonerDelete = new javax.swing.JButton();
         buttonSummonerSearch = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboRegion = new javax.swing.JComboBox<>();
+        buttonHelp = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         textChampion = new javax.swing.JTextField();
@@ -163,23 +169,39 @@ public class View extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Summoner");
 
-        jComboBox1.setBackground(new java.awt.Color(51, 51, 51));
-        jComboBox1.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(204, 204, 204));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EUW1", "LAN1", "LAS1", "LAS2" }));
-        jComboBox1.setBorder(null);
+        comboRegion.setBackground(new java.awt.Color(51, 51, 51));
+        comboRegion.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
+        comboRegion.setForeground(new java.awt.Color(204, 204, 204));
+        comboRegion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BR1", "EUN1", "EUW1", "JP1", "KR", "LA1", "LA2", "NA1", "OC1", "TR1", "RU" }));
+        comboRegion.setBorder(null);
+
+        buttonHelp.setBackground(new java.awt.Color(51, 51, 51));
+        buttonHelp.setBorder(null);
+        buttonHelp.setBorderPainted(false);
+        buttonHelp.setContentAreaFilled(false);
+        buttonHelp.setFocusPainted(false);
+        buttonHelp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                buttonHelpMouseEntered(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonHelpMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelGameVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(labelGameVersion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(comboRegion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addGap(18, 18, 18)
@@ -192,16 +214,20 @@ public class View extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelGameVersion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textSummoner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonSummonerSearch)
-                    .addComponent(buttonSummonerDelete)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(buttonHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelGameVersion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textSummoner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonSummonerSearch)
+                        .addComponent(buttonSummonerDelete)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboRegion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -283,7 +309,7 @@ public class View extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(buttonLiveGame)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -314,7 +340,7 @@ public class View extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 541, Short.MAX_VALUE)
         );
 
         jPanel6.setBackground(new java.awt.Color(43, 43, 43));
@@ -380,9 +406,7 @@ public class View extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(0, 0, 0)))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -434,16 +458,53 @@ public class View extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonSummonerSearchMousePressed
 
+    private void buttonHelpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHelpMouseEntered
+        buttonHelp.setBackground(new ColorUIResource(new Color(51, 51, 51)));
+    }//GEN-LAST:event_buttonHelpMouseEntered
+
+    private void buttonHelpMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHelpMousePressed
+        String textLabel = labelGameVersion.getText();
+        labelGameVersion.setText("Updating All Data");
+        labelGameVersion.setForeground(new Color(255, 98, 10));
+        int option;
+        option = JOptionPane.showOptionDialog(
+                null,
+                "Errors in data loading? You can update all locally saved "
+                + "items to try and fix this error. This may take a phew "
+                + "minuts",
+                "Help",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new String[]{"Update all local data", "Cancel"},
+                "Cancel"
+        );
+        if (option == JOptionPane.YES_OPTION) {
+            try {
+                dataController.updateAllData();
+
+                setUpView();
+                labelGameVersion.setForeground(new Color(204, 204, 204));
+            } catch (IOException ex) {
+                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            labelGameVersion.setText(textLabel);
+            labelGameVersion.setForeground(new Color(204, 204, 204));
+        }
+    }//GEN-LAST:event_buttonHelpMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddFavourites;
     private javax.swing.JButton buttonChampionDelete;
     private javax.swing.JButton buttonChampionSearch;
     private javax.swing.JButton buttonDeleteFavourites;
+    private javax.swing.JButton buttonHelp;
     private javax.swing.JButton buttonLiveGame;
     private javax.swing.JButton buttonSummonerDelete;
     private javax.swing.JButton buttonSummonerSearch;
+    private javax.swing.JComboBox<String> comboRegion;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

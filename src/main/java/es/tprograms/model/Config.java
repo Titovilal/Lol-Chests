@@ -13,9 +13,10 @@ public final class Config {
     //Provisional way to acces api key until i learn how to hide it properly
     private static final String API_KEY = "RGAPI-d1fb1af4-d84a-4a1e-8290-da3caef733f3";
 
-    public static final String FAVOURITES_FILE = "favourites.txt";
-    public static final String CHAMPION_DATA_FILE = "champions.txt";
-    public static final String VERSION_FILE = "version.txt";
+    public static final String ICONS_FOLDER = "resources/icons/";
+    public static final String FAVOURITES_FILE = "resources/data/favourites.txt";
+    public static final String CHAMPION_DATA_FILE = "resources/data/champions.txt";
+    public static final String VERSION_FILE = "resources/data/version.txt";
 
     /**
      * The Region class contains constants for different regions in the

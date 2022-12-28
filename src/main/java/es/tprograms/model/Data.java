@@ -15,9 +15,11 @@ import java.util.Map;
  * summoner name but different region (replacing the map with the object).
  *
  * @author Titovilal
+ * https://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/Aatrox.png
  */
 public final class Data {
 
+    
     /**
      * Saves a map of regions and summoner names to a file.
      *

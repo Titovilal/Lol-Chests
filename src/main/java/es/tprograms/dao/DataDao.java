@@ -1,7 +1,11 @@
 package es.tprograms.dao;
 
 import es.tprograms.model.Config;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import okhttp3.OkHttpClient;
@@ -20,6 +24,42 @@ import org.json.JSONObject;
  * @version 1.0.0
  */
 public final class DataDao {
+
+    /**
+     * Downloads the images of the given champions.
+     *
+     * @param champions a map of champion IDs and names
+     * @param version the version of the champions to download
+     * @throws IOException if an I/O error occurs while reading from the URL or
+     * writing to the file
+     */
+    public static final void downloadChampionsSquare(Map<Integer, String> champions, String version) throws IOException {
+        for (Map.Entry<Integer, String> entry : champions.entrySet()) {
+            String championName = entry.getValue();
+            downloadChampionSquare(championName, version);
+        }
+    }
+
+    /**
+     * Downloads the image of the given champion.
+     *
+     * @param championName the name of the champion
+     * @param version the version of the champion to download
+     * @throws IOException if an I/O error occurs while reading from the URL or
+     * writing to the file
+     */
+    private static final void downloadChampionSquare(String championName, String version) throws IOException {
+        String urlString = "http://ddragon.leagueoflegends.com/cdn/" + version + "/img/champion/" + championName + ".png";
+        URL url = new URL(urlString);
+        BufferedInputStream in = new BufferedInputStream(url.openStream());
+        try ( BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream("resources/icons/" + championName + ".png"))) {
+            byte[] dataBuffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+                out.write(dataBuffer, 0, bytesRead);
+            }
+        }
+    }
 
     /**
      * Gets the encrypted ID for a summoner with a given game name and routing

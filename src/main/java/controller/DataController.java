@@ -1,5 +1,6 @@
 package controller;
 
+import es.tprograms.dao.ChampionDao;
 import es.tprograms.dao.DataDao;
 import es.tprograms.model.Data;
 import java.io.IOException;
@@ -13,6 +14,16 @@ import java.util.Map;
  * @version 1.0.0
  */
 public final class DataController {
+
+    /**
+     * falta por acabar LA FUNCION
+     * @throws IOException 
+     */
+    public void updateAllData() throws IOException {
+        String currentVersion = DataDao.getLatestVersion();
+        Map<Integer, String> champions = DataDao.getChampionsMap(currentVersion);
+        DataDao.downloadChampionsSquare(champions, currentVersion);
+    }
 
     /**
      * Returns a map with the favourite players.
