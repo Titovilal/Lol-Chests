@@ -1,6 +1,6 @@
 package es.tprograms.dao;
 
-import es.tprograms.model.Constants;
+import es.tprograms.model.Config;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,56 +11,62 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Class to acces all nonrelated summoner data
+ *
+ * The DataDao class provides functionality for retrieving data from an external
+ * source. It offers methods for getting the encrypted ID for a summoner, the
+ * latest game version, and a map with champions IDs and their respective names.
  *
  * @author Titovilal
+ * @version 1.0.0
  */
-public class DataDao {
-    
+public final class DataDao {
+
     /**
-     * Get the encrypted id from a game name and routing platform   
-     * @param routing
-     * @param gameName
-     * @return
-     * @throws IOException 
+     * Gets the encrypted ID for a summoner with a given game name and routing
+     * platform.
+     *
+     * @param routing the routing platform for the summoner.
+     * @param gameName the game name of the summoner.
+     * @return the encrypted ID for the summoner.
+     * @throws IOException if an error occurs when making the HTTP request.
      */
-    public final String getEncryptedId(String routing, String gameName) throws IOException {
-        
+    public static final String getEncryptedId(String routing, String gameName) throws IOException {
+
         OkHttpClient client = new OkHttpClient();
-        
+
         Request request = new Request.Builder()
                 .url("https://" + routing
                         + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/"
-                        + gameName + "?api_key=" + Constants.getAPI())
+                        + gameName + "?api_key=" + Config.getAPI_KEY())
                 .get()
                 .build();
-        
+
         Response response;
         response = client.newCall(request).execute();
         @SuppressWarnings("null")
         String responseString = response.body().string();
         JSONObject responseJson = new JSONObject(responseString);
-        
+
         return responseJson.getString("id");
     }
 
     /**
-     * Get the lastest game version
+     * Gets the latest game version.
      *
-     * @return String with the lastest game version
-     * @throws java.io.IOException
+     * @return a string with the latest game version.
+     * @throws IOException if an error occurs when making the HTTP request.
      */
     @SuppressWarnings("null")
-    public final String getLatestVersion() throws IOException {
+    public static final String getLatestVersion() throws IOException {
         OkHttpClient client = new OkHttpClient();
-        
+
         Request request = new Request.Builder()
                 .url("https://ddragon.leagueoflegends.com/api/versions.json")
                 .get()
                 .build();
-        
+
         Response response = client.newCall(request).execute();
-        
+
         String responseString;
         responseString = response.body().string();
         JSONArray versionArray = new JSONArray(responseString);
@@ -74,27 +80,27 @@ public class DataDao {
      * @return Map<Integer,String>
      * @throws java.io.IOException
      */
-    public final Map<Integer, String> getMapIdsChampions(String version) throws IOException {
+    public static final Map<Integer, String> getChampionsMap(String version) throws IOException {
         OkHttpClient client = new OkHttpClient();
-        
+
         Request request = new Request.Builder()
                 .url("https://ddragon.leagueoflegends.com/cdn/"
                         + version + "/data/en_US/champion.json")
                 .get()
                 .build();
-        
+
         Response response;
         response = client.newCall(request).execute();
         @SuppressWarnings("null")
         String responseString = response.body().string();
         JSONObject responseJson = new JSONObject(responseString);
         JSONObject data = responseJson.getJSONObject("data");
-        
+
         Map<Integer, String> championMap = new HashMap<>();
         for (String key : data.keySet()) {
             JSONObject champion = data.getJSONObject(key);
-            int id = champion.getInt("id");
-            String name = champion.getString("name");
+            int id = champion.getInt("key");
+            String name = champion.getString("id");
             championMap.put(id, name);
         }
         return championMap;

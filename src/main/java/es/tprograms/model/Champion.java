@@ -2,6 +2,7 @@ package es.tprograms.model;
 
 /**
  * Unused class at this version
+ *
  * @author Titovilal
  */
 public class Champion {

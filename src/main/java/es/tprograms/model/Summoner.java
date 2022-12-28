@@ -2,7 +2,12 @@ package es.tprograms.model;
 
 /**
  *
+ * The Summoner class represents a summoner in a game. It contains information
+ * about the summoner, such as their ID, account ID, PUUID, name, profile icon
+ * ID, revision date, and summoner level.
+ *
  * @author Titovilal
+ * @version 1.0.0
  */
 public class Summoner {
 

@@ -2,7 +2,7 @@ package es.tprograms.dao;
 
 import com.google.gson.Gson;
 import es.tprograms.model.Champion;
-import es.tprograms.model.Constants;
+import es.tprograms.model.Config;
 import es.tprograms.model.Summoner;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -59,7 +59,7 @@ public final class SummonerDao {
                 .url("https://euw1.api.riotgames.com/lol/champion-mastery/"
                         + "v4/champion-masteries/by-summoner/" + encryptedId)
                 .get()
-                .addHeader("X-Riot-Token", Constants.getAPI())
+                .addHeader("X-Riot-Token", Config.getAPI_KEY())
                 .build();
 
         Gson gson = new Gson();

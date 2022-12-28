@@ -1,8 +1,10 @@
 package es.tprograms.view;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import controller.ChampionController;
+import controller.DataController;
+import controller.SummonerController;
 import es.tprograms.dao.SummonerDao;
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.IOException;
@@ -16,25 +18,63 @@ import java.util.logging.Logger;
  */
 public class View extends javax.swing.JFrame {
 
+    private SummonerController summonerController;
+    private DataController dataController;
+    private ChampionController championController;
+
     public View() {
         FlatDarkLaf.setup();
         initComponents();
     }
 
+    /**
+     * Initate the view
+     */
     public void initView() {
         Image icon = Toolkit.getDefaultToolkit().getImage("iconTitleBar.png");
         this.setIconImage(icon);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        initControllers();
     }
 
-    private void initControllers() {
+    /**
+     *
+     * Initializes the controllers and sets up the view. Loads the favourite
+     * players.
+     */
+    public void initControllers() {
+        summonerController = new SummonerController();
+        dataController = new DataController();
+        championController = new ChampionController();
+
+        setUpView();
+        loadFavourites();
+    }
+
+    /**
+     *
+     */
+    private void loadFavourites() {
         try {
-            SummonerDao.getSummoner("euw1", "titovilal", "RGAPI-444c1562-72b9-48b4-a753-5368dba961ab");
-        } catch (IOException | URISyntaxException | InterruptedException ex) {
+            //Requires favourites panel implementation to finish this methos
+            dataController.getFavPlayers().toString();
+//            System.out.println(dataController.getFavPlayers().toString());
+        } catch (IOException ex) {
             Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
-            Thread.currentThread().interrupt();
+        }
+    }
+
+    /**
+     *
+     */
+    private void setUpView() {
+        try {
+            String currentVersion = dataController.getCurrentVersion();
+            labelGameVersion.setText("Lol version: " + currentVersion);
+
+        } catch (IOException ex) {
+            labelGameVersion.setText("Error");
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -49,23 +89,27 @@ public class View extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        labelGameVersion = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        textFileSummoner = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        textSummoner = new javax.swing.JTextField();
+        buttonSummonerDelete = new javax.swing.JButton();
+        buttonSummonerSearch = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        tfUsuario = new javax.swing.JTextField();
+        textChampion = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        buttonChampionSearch = new javax.swing.JButton();
+        buttonChampionDelete = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        buttonLiveGame = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        buttonAddFavourites = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        buttonDeleteFavourites = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("\t\t\t\tLol Chest V1.0.0");
@@ -75,44 +119,55 @@ public class View extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
 
-        jLabel4.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("LoL version: 12.7.3");
+        labelGameVersion.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
+        labelGameVersion.setForeground(new java.awt.Color(204, 204, 204));
+        labelGameVersion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelGameVersion.setText("LoL version: 12.7.3");
 
         jLabel6.setFont(new java.awt.Font("Gadugi", 1, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(39, 154, 98));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Welcome to LoL Chests!");
 
-        textFileSummoner.setBackground(new java.awt.Color(61, 61, 61));
-        textFileSummoner.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
-        textFileSummoner.setForeground(new java.awt.Color(204, 204, 204));
-        textFileSummoner.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textFileSummoner.setToolTipText("");
-        textFileSummoner.setBorder(null);
-        textFileSummoner.addKeyListener(new java.awt.event.KeyAdapter() {
+        textSummoner.setBackground(new java.awt.Color(61, 61, 61));
+        textSummoner.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
+        textSummoner.setForeground(new java.awt.Color(204, 204, 204));
+        textSummoner.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textSummoner.setToolTipText("");
+        textSummoner.setBorder(null);
+        textSummoner.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                textFileSummonerKeyPressed(evt);
+                textSummonerKeyPressed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(30, 117, 75));
-        jButton6.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(35, 35, 35));
-        jButton6.setText("Delete");
-        jButton6.setBorderPainted(false);
+        buttonSummonerDelete.setBackground(new java.awt.Color(30, 117, 75));
+        buttonSummonerDelete.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
+        buttonSummonerDelete.setForeground(new java.awt.Color(35, 35, 35));
+        buttonSummonerDelete.setText("Delete");
+        buttonSummonerDelete.setBorderPainted(false);
 
-        jButton5.setBackground(new java.awt.Color(30, 117, 75));
-        jButton5.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(35, 35, 35));
-        jButton5.setText("Search");
-        jButton5.setBorderPainted(false);
+        buttonSummonerSearch.setBackground(new java.awt.Color(30, 117, 75));
+        buttonSummonerSearch.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
+        buttonSummonerSearch.setForeground(new java.awt.Color(35, 35, 35));
+        buttonSummonerSearch.setText("Search");
+        buttonSummonerSearch.setBorderPainted(false);
+        buttonSummonerSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonSummonerSearchMousePressed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Summoner name");
+        jLabel9.setText("Summoner");
+
+        jComboBox1.setBackground(new java.awt.Color(51, 51, 51));
+        jComboBox1.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(204, 204, 204));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EUW1", "LAN1", "LAS1", "LAS2" }));
+        jComboBox1.setBorder(null);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -120,17 +175,19 @@ public class View extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelGameVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addGap(18, 18, 18)
-                .addComponent(textFileSummoner, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textSummoner, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonSummonerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonSummonerDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
         jPanel2Layout.setVerticalGroup(
@@ -138,12 +195,13 @@ public class View extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelGameVersion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textFileSummoner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(textSummoner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonSummonerSearch)
+                    .addComponent(buttonSummonerDelete)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -157,54 +215,54 @@ public class View extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 489, Short.MAX_VALUE)
+            .addGap(0, 470, Short.MAX_VALUE)
         );
 
         jPanel4.setBackground(new java.awt.Color(51, 51, 51));
 
-        tfUsuario.setBackground(new java.awt.Color(61, 61, 61));
-        tfUsuario.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
-        tfUsuario.setForeground(new java.awt.Color(204, 204, 204));
-        tfUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfUsuario.setToolTipText("");
-        tfUsuario.setBorder(null);
-        tfUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+        textChampion.setBackground(new java.awt.Color(61, 61, 61));
+        textChampion.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
+        textChampion.setForeground(new java.awt.Color(204, 204, 204));
+        textChampion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textChampion.setToolTipText("");
+        textChampion.setBorder(null);
+        textChampion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                tfUsuarioKeyPressed(evt);
+                textChampionKeyPressed(evt);
             }
         });
 
         jLabel7.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Champion name");
+        jLabel7.setText("Champion");
 
-        jButton2.setBackground(new java.awt.Color(30, 117, 75));
-        jButton2.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(35, 35, 35));
-        jButton2.setText("Search");
-        jButton2.setBorderPainted(false);
+        buttonChampionSearch.setBackground(new java.awt.Color(30, 117, 75));
+        buttonChampionSearch.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
+        buttonChampionSearch.setForeground(new java.awt.Color(35, 35, 35));
+        buttonChampionSearch.setText("Search");
+        buttonChampionSearch.setBorderPainted(false);
 
-        jButton4.setBackground(new java.awt.Color(30, 117, 75));
-        jButton4.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(35, 35, 35));
-        jButton4.setText("Delete");
-        jButton4.setBorderPainted(false);
+        buttonChampionDelete.setBackground(new java.awt.Color(30, 117, 75));
+        buttonChampionDelete.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
+        buttonChampionDelete.setForeground(new java.awt.Color(35, 35, 35));
+        buttonChampionDelete.setText("Delete");
+        buttonChampionDelete.setBorderPainted(false);
 
         jLabel8.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(204, 204, 204));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("168 champions");
 
-        jButton3.setBackground(new java.awt.Color(51, 51, 51));
-        jButton3.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(102, 102, 102));
-        jButton3.setText("Live Game not avaliable");
-        jButton3.setBorderPainted(false);
-        jButton3.setEnabled(false);
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        buttonLiveGame.setBackground(new java.awt.Color(51, 51, 51));
+        buttonLiveGame.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
+        buttonLiveGame.setForeground(new java.awt.Color(102, 102, 102));
+        buttonLiveGame.setText("Live Game not avaliable");
+        buttonLiveGame.setBorderPainted(false);
+        buttonLiveGame.setEnabled(false);
+        buttonLiveGame.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton3MousePressed(evt);
+                buttonLiveGameMousePressed(evt);
             }
         });
 
@@ -213,31 +271,36 @@ public class View extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
-                .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textChampion, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonChampionSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonChampionDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addGap(15, 15, 15))
+                .addComponent(buttonLiveGame)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(298, 298, 298))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textChampion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonLiveGame)
+                    .addComponent(buttonChampionDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonChampionSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -251,17 +314,17 @@ public class View extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 503, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel6.setBackground(new java.awt.Color(43, 43, 43));
 
-        jButton1.setBackground(new java.awt.Color(30, 117, 75));
-        jButton1.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(35, 35, 35));
-        jButton1.setText("Add to Favourites");
-        jButton1.setBorderPainted(false);
-        jButton1.setFocusPainted(false);
+        buttonAddFavourites.setBackground(new java.awt.Color(30, 117, 75));
+        buttonAddFavourites.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
+        buttonAddFavourites.setForeground(new java.awt.Color(35, 35, 35));
+        buttonAddFavourites.setText("Add to Favourites");
+        buttonAddFavourites.setBorderPainted(false);
+        buttonAddFavourites.setFocusPainted(false);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -269,15 +332,41 @@ public class View extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonAddFavourites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonAddFavourites, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel7.setBackground(new java.awt.Color(43, 43, 43));
+
+        buttonDeleteFavourites.setBackground(new java.awt.Color(183, 66, 0));
+        buttonDeleteFavourites.setFont(new java.awt.Font("Gadugi", 0, 16)); // NOI18N
+        buttonDeleteFavourites.setForeground(new java.awt.Color(35, 35, 35));
+        buttonDeleteFavourites.setText("Delete");
+        buttonDeleteFavourites.setBorderPainted(false);
+        buttonDeleteFavourites.setFocusPainted(false);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(buttonDeleteFavourites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonDeleteFavourites, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -286,9 +375,14 @@ public class View extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, 0)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -306,7 +400,9 @@ public class View extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -323,25 +419,31 @@ public class View extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfUsuarioKeyPressed
-    }//GEN-LAST:event_tfUsuarioKeyPressed
+    private void textChampionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textChampionKeyPressed
+    }//GEN-LAST:event_textChampionKeyPressed
 
-    private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
+    private void buttonLiveGameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLiveGameMousePressed
         //Color for live game active can be 169,169,25
-    }//GEN-LAST:event_jButton3MousePressed
+    }//GEN-LAST:event_buttonLiveGameMousePressed
 
-    private void textFileSummonerKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFileSummonerKeyPressed
+    private void textSummonerKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textSummonerKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFileSummonerKeyPressed
+    }//GEN-LAST:event_textSummonerKeyPressed
+
+    private void buttonSummonerSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSummonerSearchMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonSummonerSearchMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton buttonAddFavourites;
+    private javax.swing.JButton buttonChampionDelete;
+    private javax.swing.JButton buttonChampionSearch;
+    private javax.swing.JButton buttonDeleteFavourites;
+    private javax.swing.JButton buttonLiveGame;
+    private javax.swing.JButton buttonSummonerDelete;
+    private javax.swing.JButton buttonSummonerSearch;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -352,7 +454,10 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JTextField textFileSummoner;
-    private javax.swing.JTextField tfUsuario;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel labelGameVersion;
+    private javax.swing.JTextField textChampion;
+    private javax.swing.JTextField textSummoner;
     // End of variables declaration//GEN-END:variables
+
 }
