@@ -1,7 +1,8 @@
-package controller;
+package es.tprograms.controller;
 
 import es.tprograms.dao.ChampionDao;
 import es.tprograms.dao.DataDao;
+import es.tprograms.model.Config;
 import es.tprograms.model.Data;
 import java.io.IOException;
 import java.util.Map;
@@ -15,9 +16,12 @@ import java.util.Map;
  */
 public final class DataController {
 
+    
+    
     /**
      * falta por acabar LA FUNCION
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     public void updateAllData() throws IOException {
         String currentVersion = DataDao.getLatestVersion();
@@ -36,6 +40,15 @@ public final class DataController {
     }
 
     /**
+     * 
+     * @param summoners
+     * @throws IOException 
+     */
+    public void overwriteFavPlayers(Map<String, String> summoners) throws IOException {
+        Data.overwriteFavouritesFile(summoners);
+    }
+
+    /**
      * Gets the current version of the game. If the current version is newer
      * than the local version, overwrites the local version file with the
      * current version.
@@ -44,7 +57,7 @@ public final class DataController {
      * @throws IOException if an error occurs when opening or writing to the
      * file.
      */
-    public String getCurrentVersion() throws IOException {
+    public String checkVersion() throws IOException {
         String currentVersion;
         currentVersion = DataDao.getLatestVersion();
         String localVersion;

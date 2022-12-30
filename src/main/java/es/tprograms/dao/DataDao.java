@@ -48,7 +48,7 @@ public final class DataDao {
      * @throws IOException if an I/O error occurs while reading from the URL or
      * writing to the file
      */
-    private static final void downloadChampionSquare(String championName, String version) throws IOException {
+    private static void downloadChampionSquare(String championName, String version) throws IOException {
         String urlString = "http://ddragon.leagueoflegends.com/cdn/" + version + "/img/champion/" + championName + ".png";
         URL url = new URL(urlString);
         BufferedInputStream in = new BufferedInputStream(url.openStream());

@@ -18,16 +18,14 @@ import java.util.Map;
  * https://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/Aatrox.png
  */
 public final class Data {
-
     
     /**
      * Saves a map of regions and summoner names to a file.
      *
      * @param summoners The map of regions and summoner names to save.
-     * @param fileName The name of the file to save the map to.
      * @throws IOException If there is an error writing to the file.
      */
-    public static void overwriteFavouritesFile(Map<String, String> summoners, String fileName) throws IOException {
+    public static void overwriteFavouritesFile(Map<String, String> summoners) throws IOException {
         try ( BufferedWriter writer = new BufferedWriter(new FileWriter(Config.FAVOURITES_FILE))) {
             for (Map.Entry<String, String> entry : summoners.entrySet()) {
                 writer.write(entry.getKey() + ":" + entry.getValue());
