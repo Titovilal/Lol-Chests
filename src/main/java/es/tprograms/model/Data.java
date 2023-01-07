@@ -18,7 +18,7 @@ import java.util.Map;
  * https://ddragon.leagueoflegends.com/cdn/12.23.1/img/champion/Aatrox.png
  */
 public final class Data {
-    
+
     /**
      * Saves a map of regions and summoner names to a file.
      *

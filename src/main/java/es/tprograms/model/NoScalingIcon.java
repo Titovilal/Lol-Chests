@@ -1,4 +1,4 @@
-package es.tprograms.view;
+package es.tprograms.model;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;

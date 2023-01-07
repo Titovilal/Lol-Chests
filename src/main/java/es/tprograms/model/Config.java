@@ -11,7 +11,7 @@ package es.tprograms.model;
 public final class Config {
 
     //Provisional way to acces api key until i learn how to hide it properly
-    private static final String API_KEY = "RGAPI-615009f2-82af-43d6-9396-1fc59e16de5f";
+    private static final String API_KEY = "RGAPI-72aa77d6-5ff2-4800-9499-5ace052a1997";
 
     public static final String ICONS_FOLDER = "resources/icons/";
     public static final String FAVOURITES_FILE = "resources/data/favourites.txt";

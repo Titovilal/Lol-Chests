@@ -17,7 +17,7 @@ public class Summoner {
     private String name;
     private String profileIconId;
     private String revisionDate;
-    private String summonerLevel;
+    private long level;
 
     public Summoner() {
         id = "0";
@@ -26,7 +26,7 @@ public class Summoner {
 
     @Override
     public String toString() {
-        return "Summoner{" + "id=" + id + ", accountId=" + accountId + ", puuid=" + puuid + ", name=" + name + ", profileIconId=" + profileIconId + ", revisionDate=" + revisionDate + ", summonerLevel=" + summonerLevel + '}';
+        return "Summoner{" + "id=" + id + ", accountId=" + accountId + ", puuid=" + puuid + ", name=" + name + ", profileIconId=" + profileIconId + ", revisionDate=" + revisionDate + ", summonerLevel=" + level + '}';
     }
 
     public String getId() {
@@ -77,12 +77,12 @@ public class Summoner {
         this.revisionDate = revisionDate;
     }
 
-    public String getSummonerLevel() {
-        return summonerLevel;
+    public long getLevel() {
+        return level;
     }
 
-    public void setSummonerLevel(String summonerLevel) {
-        this.summonerLevel = summonerLevel;
+    public void setLevel(long level) {
+        this.level = level;
     }
 
 }

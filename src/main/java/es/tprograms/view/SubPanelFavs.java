@@ -55,14 +55,13 @@ public class SubPanelFavs extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(buttonAddFavourites, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+            .addComponent(buttonAddFavourites, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(buttonAddFavourites, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddFavourites;

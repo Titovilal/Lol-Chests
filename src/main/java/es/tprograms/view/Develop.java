@@ -1,5 +1,6 @@
 package es.tprograms.view;
 
+import es.tprograms.model.NoScalingIcon;
 import com.formdev.flatlaf.FlatDarkLaf;
 import es.tprograms.dao.DataDao;
 import java.awt.GridLayout;
@@ -103,7 +104,8 @@ public final class Develop extends javax.swing.JFrame {
 
             try {
                 prueba(DataDao.getChampionsMap(DataDao.getLatestVersion()));
-            } catch (IOException ex) {
+            }
+            catch (IOException ex) {
                 Logger.getLogger(Develop.class.getName()).log(Level.SEVERE, null, ex);
             }
 //            prueba();

@@ -16,8 +16,6 @@ import java.util.Map;
  */
 public final class DataController {
 
-    
-    
     /**
      * falta por acabar LA FUNCION
      *
@@ -40,9 +38,9 @@ public final class DataController {
     }
 
     /**
-     * 
+     *
      * @param summoners
-     * @throws IOException 
+     * @throws IOException
      */
     public void overwriteFavPlayers(Map<String, String> summoners) throws IOException {
         Data.overwriteFavouritesFile(summoners);
